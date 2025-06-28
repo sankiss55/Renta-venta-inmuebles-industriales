@@ -479,8 +479,8 @@ height: 90%;
 /* Responsive */
 @media (max-width: 768px) {
     .scroll_services {
-        overflow-x: auto !important;
-        flex-direction: row !important;
+        overflow: auto !important;
+        align-items: center;
         height: auto !important;
         width: 100% !important;
         padding-bottom: 20px;

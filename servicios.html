@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Inmuebles Industriales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f8f9fa;
+            --accent-color: #6c757d;
+            --text-light: #ffffff;
+            --border-color: #e9ecef;
+        }
+
+        * {
+            user-select: none;     
+            -webkit-user-select: none; 
+            -moz-user-select: none;  
+            -ms-user-select: none;   
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background: #ffffff;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            animation: 1s fadeInDown;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links a.active {
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero-services {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://img.freepik.com/foto-gratis/agente-bienes-raices-vista-frontal-tableta_23-2150225238.jpg?ga=GA1.1.1612468513.1750565276&semt=ais_items_boosted&w=740');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: 1s fadeInDown;
+        }
+
+        .hero-services-content {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-services h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-services p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .services-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            color: var(--text-light);
+            text-decoration: none;
+            border: 2px solid var(--text-light);
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.5s ease;
+        }
+
+        .services-cta:hover {
+            background: var(--text-light);
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .tema {
+            background-color: rgba(255, 230, 0, 0.7);
+            padding: 8px 16px;
+            width: max-content;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .sub_tema {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 4rem;
+            color: var(--primary-color);
+        }
+
+        /* Services Overview */
+        .services-overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            margin-bottom: 8rem;
+            align-items: center;
+        }
+
+        .overview-content h3 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .overview-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            line-height: 1.8;
+        }
+
+        .overview-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .overview-features li {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-left: 2rem;
+            font-weight: 500;
+        }
+
+        .overview-features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: rgba(255, 230, 0, 1);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .overview-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 8rem;
+        }
+
+        .service-card {
+            background: var(--secondary-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 2.5rem;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--text-light);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .service-description {
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: rgba(255, 230, 0, 1);
+            font-weight: bold;
+        }
+
+        .service-btn {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .service-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Process Section */
+        .process-section {
+            background: var(--secondary-color);
+            padding: 6rem 0;
+            margin: 6rem 0;
+            border-radius: 20px;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .step-description {
+            color: var(--accent-color);
+            line-height: 1.6;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            text-align: center;
+            margin: 8rem 0;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+            align-items: center;
+        }
+
+        .partner-card {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .partner-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .partner-description {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-image:  url('./Img/img_13.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--text-light);
+            padding: 6rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 6rem 0;
+        }
+
+        .cta-content h3 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            padding: 1rem 3rem;
+            border: 2px solid var(--text-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: var(--text-light);
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-color);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 0.6;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-item svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            fill: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+        }
+
+        .social-links a:hover svg {
+            fill: var(--text-light);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent-color);
+            transition: fill 0.3s ease;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 3rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero-services h1 {
+                font-size: 2.5rem;
+            }
+
+            .sub_tema {
+                font-size: 2rem;
+            }
+
+            .services-overview {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .main-content {
+                padding: 3rem 1rem;
+            }
+
+            .cta-content h3 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero-services h1 {
+                font-size: 2rem;
+            }
+
+            .sub_tema {
+                font-size: 1.5rem;
+            }
+
+            .service-content {
+                padding: 2rem;
+            }
+
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 4rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">INMUEBLES INDUSTRIALES</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="servicios.html" class="active">Servicios</a></li>
+                <li><a href="index.html#productos">Productos</a></li>
+                <li><a href="contactos.html">Contactos</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-services">
+        <div class="hero-services-content">
+            <h1>Nuestros Servicios</h1>
+            <p>Soluciones integrales en bienes raíces industriales para hacer crecer tu negocio</p>
+            <a href="#servicios" class="services-cta">EXPLORAR SERVICIOS</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Services Header -->
+        <section id="servicios">
+            <h5 class="tema">LO QUE OFRECEMOS</h5>
+            <h1 class="sub_tema">Servicios especializados</h1>
+        </section>
+
+        <!-- Services Overview -->
+        <section class="services-overview">
+            <div class="overview-content">
+                <h3>Expertos en inmuebles industriales</h3>
+                <p>Con más de una década de experiencia en el mercado inmobiliario industrial, ofrecemos servicios integrales que van desde la consultoría hasta la gestión completa de propiedades.</p>
+                <p>Nuestro enfoque personalizado garantiza que cada cliente encuentre la solución perfecta para sus necesidades específicas.</p>
+                <ul class="overview-features">
+                    <li>Asesoría personalizada</li>
+                    <li>Cobertura nacional</li>
+                    <li>Alianzas estratégicas</li>
+                    <li>Seguimiento integral</li>
+                </ul>
+            </div>
+            <img src="./Img/img_14.png" alt="Servicios inmobiliarios" class="overview-image">
+        </section>
+
+        <!-- Services Grid -->
+        <section class="services-grid">
+            <div class="service-card">
+                <img src="./Img/img_11.png" alt="Venta de inmuebles" class="service-image">
+                <div class="service-content">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Venta de Inmuebles</h3>
+                    <p class="service-description">Facilitamos la compra y venta de propiedades industriales con un proceso transparente y eficiente.</p>
+                    <ul class="service-features">
+                        <li>Evaluación profesional de propiedades</li>
+                        <li>Gestión legal completa</li>
+                    </ul>
+                    <a href="contactos.html" class="service-btn">Más información</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="./Img/img_10.png" alt="Renta de inmuebles" class="service-image">
+                <div class="service-content">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Renta de Espacios</h3>
+                    <p class="service-description">Conectamos empresas con los espacios industriales perfectos para sus operaciones.</p>
+                    <ul class="service-features">
+                        <li>Búsqueda personalizada</li>
+                        <li>Contratos flexibles</li>
+                        <li>Inspecciones técnicas</li>
+                    </ul>
+                    <a href="contactos.html" class="service-btn">Más información</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="./Img/img_12.png" alt="Gestión de propiedades" class="service-image">
+                <div class="service-content">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Gestión Integral</h3>
+                    <p class="service-description">Administramos propiedades industriales para optimizar su rendimiento y valor.</p>
+                    <ul class="service-features">
+                        <li>Administración completa</li>
+                        <li>Mantenimiento preventivo</li>
+                        <li>Gestión de inquilinos</li>
+                    </ul>
+                    <a href="contactos.html" class="service-btn">Más información</a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section">
+            <div class="process-container">
+                <h5 class="tema">NUESTRO PROCESO</h5>
+                <h2 class="sub_tema">Cómo trabajamos</h2>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4 class="step-title">Consulta Inicial</h4>
+                        <p class="step-description">Analizamos tus necesidades específicas y objetivos para diseñar la estrategia perfecta.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4 class="step-title">Búsqueda Especializada</h4>
+                        <p class="step-description">Utilizamos nuestra red y tecnología para identificar las mejores oportunidades del mercado.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4 class="step-title">Evaluación Técnica</h4>
+                        <p class="step-description">Realizamos inspecciones detalladas y análisis de viabilidad para garantizar la mejor decisión.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4 class="step-title">Negociación</h4>
+                        <p class="step-description">Gestionamos todas las negociaciones para obtener las mejores condiciones para ti.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <h4 class="step-title">Cierre y Seguimiento</h4>
+                        <p class="step-description">Acompañamos todo el proceso legal y brindamos seguimiento post-transacción.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section class="partners-section">
+            <h5 class="tema">NUESTROS ALIADOS</h5>
+            <h2 class="sub_tema">Trabajamos con los mejores</h2>
+            
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-logo">CBRE</div>
+                    <p class="partner-description">Líder mundial en servicios inmobiliarios comerciales</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">JLL</div>
+                    <p class="partner-description">Servicios profesionales especializados en bienes raíces</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">PROLOGIS</div>
+                    <p class="partner-description">Desarrollador líder de inmuebles logísticos</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">WALMART</div>
+                    <p class="partner-description">Operaciones logísticas y centros de distribución</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">AMAZON</div>
+                    <p class="partner-description">Infraestructura logística y almacenamiento</p>
+                </div>
+                
+                <div class="partner-card">
+                    <div class="partner-logo">PEPSICO</div>
+                    <p class="partner-description">Centros de manufactura y distribución</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h3>¿Listo para comenzar?</h3>
+                <p>Contacta con nuestros expertos y descubre cómo podemos ayudarte a alcanzar tus objetivos inmobiliarios</p>
+                <a href="contactos.html" class="cta-btn">CONTACTANOS</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Inmuebles Industriales</h3>
+                <p>Especializados en propiedades industriales de alta calidad. Conectamos empresas con los espacios perfectos para su crecimiento y desarrollo.</p>
+                <div class="social-links">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <a href="#">Venta</a>
+                <a href="#">Renta</a>
+                <a href="#">Consultoría</a>
+                <a href="#">Gestión</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces</h3>
+                <a href="index.html">Home</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="index.html#productos">Productos</a>
+                <a href="contactos.html">Contactos</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    <span>Av. ejemplo</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <span>5526753810</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <span>info@inmuebles.com</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>2024 Inmuebles Industriales. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

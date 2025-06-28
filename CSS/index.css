@@ -7,6 +7,7 @@
         }
 
         * {
+            
               user-select: none;     
   -webkit-user-select: none; 
   -moz-user-select: none;  
@@ -16,8 +17,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+html{
+    
+            overflow-x: hidden;
+}
         body {
+            overflow-x: hidden;
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--primary-color);
@@ -473,6 +478,31 @@ height: 90%;
 
 /* Responsive */
 @media (max-width: 768px) {
+    .scroll_services {
+        overflow-x: auto !important;
+        flex-direction: row !important;
+        height: auto !important;
+        width: 100% !important;
+        padding-bottom: 20px;
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: thin; 
+    }
+    
+    .scroll_services::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .scroll_services::-webkit-scrollbar-thumb {
+        background-color: var(--accent-color);
+        border-radius: 3px;
+    }
+    
+    .container_servicios{
+        min-width: 300px; /* Cambiamos width por min-width */
+        flex-shrink: 0; /* Evita que los elementos se compriman */
+    }
+}
+@media (max-width: 768px) {
     .menu-toggle {
         display: block;
     }
@@ -531,6 +561,35 @@ height: 90%;
         width: 60%;
         margin-left: 20%;
     }
+
+    .scroll_services {
+        padding: 0 1rem;
+    }
+
+    .container_servicios {
+        width: 90%;
+        left: auto;
+        position: relative;
+    }
+
+    #section_info {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    #section_info img {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    #section_info div {
+        margin-left: 0;
+        width: 100%;
+        padding: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -558,5 +617,25 @@ height: 90%;
         width: 80%;
         margin-left: 10%;
         font-size: 0.8rem;
+    }
+
+    .container_servicios > * {
+        width: 300px;
+    }
+
+    .container_img {
+        height: 250px;
+    }
+
+    #section_info img {
+        height: 200px;
+    }
+
+    #section_info div {
+        padding: 1.5rem;
+    }
+
+    .scroll_services {
+        padding: 0 0.5rem;
     }
 }

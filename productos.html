@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Inmuebles Industriales</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="./JS/productos.js"></script>
+    <link rel="stylesheet" href="./CSS/productos.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>INMUEBLES INDUSTRIALES</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Servicios</a>
+                <a href="#" class="nav-link active">Productos</a>
+                <a href="#" class="nav-link">Contactos</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <div class="container">
+                <h1 class="hero-title">Propiedades en venta | Inmuebles Industriales</h1>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Sidebar Filters -->
+                <aside class="sidebar">
+                    <div class="filters-container">
+                        <h2 class="filters-title">Filtros</h2>
+                        
+                        <div class="filter-group">
+                            <button class="filter-toggle" data-target="moneda">
+                                <span>Moneda</span>
+                                <span class="arrow">▼</span>
+                            </button>
+                            <div class="filter-content" id="moneda">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="MXN"> Pesos Mexicanos (MXN)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="USD"> Dólares (USD)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="EUR"> Euros (EUR)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <button class="filter-toggle" data-target="tipo">
+                                <span>Tipo de Inmueble</span>
+                                <span class="arrow">▼</span>
+                            </button>
+                            <div class="filter-content" id="tipo">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="nave_industrial"> Nave Industrial
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="bodega"> Bodega
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <button class="filter-toggle" data-target="tipo_propiedad">
+                                <span>Tipo de Operación</span>
+                                <span class="arrow">▼</span>
+                            </button>
+                            <div class="filter-content" id="tipo_propiedad">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="venta"> Venta
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="renta"> Renta
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="renta/venta"> Renta/Venta
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <button class="filter-toggle" data-target="precio">
+                                <span>Precio</span>
+                                <span class="arrow">▼</span>
+                            </button>
+                            <div class="filter-content" id="precio">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="0-1000000"> Menos de $1,000,000
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="1000000-10000000"> $1,000,000 - $10,000,000
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="10000000+"> Más de $10,000,000
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <button class="filter-toggle" data-target="venta_m2">
+                                <span>Tipo de Venta</span>
+                                <span class="arrow">▼</span>
+                            </button>
+                            <div class="filter-content" id="venta_m2">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="1"> Precio por m²
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="0"> Precio total
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Products Section -->
+                <section class="products-section">
+                    <div class="products-header">
+                        <div class="search-container">
+                            <label for="search-input">Buscar:</label>
+                            <input type="text" id="search-input" class="search-input" placeholder="Buscar productos...">
+                        </div>
+                        <div class="sort-container">
+                            <label for="sort-select">Ordenar por:</label>
+                            <select id="sort-select" class="sort-select">
+                                <option value="recent">Últimos publicados</option>
+                                <option value="price-low">Precio: menor a mayor</option>
+                                <option value="price-high">Precio: mayor a menor</option>
+                                <option value="size">Superficie</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-grid" id="products_grid">
+                        <!-- Products will be loaded here -->
+                    </div>
+
+                    <div class="loading" id="loading" style="display: none;">
+                        <p>Cargando productos...</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <dialog  id="modal_productos" onclick="cerrar_modal(event)">
+            <div id="conten_modal_productos">
+                <div id="content_img_flotante">
+                    <button class="btn_img" onclick="cambiar_img(-1)" style="left: 0;"><</button>
+                    <button class="btn_img" onclick="cambiar_img(1)" style="right: 0;">></button>
+            </div>
+            <div>
+                <h1>Titulo</h1>
+                <p><strong>Precio:</strong> <span id="precios"></span></p>
+<p><strong>Ubicación:</strong> <span id="ubicaciones"></span></p>
+<p><strong>Tipo:</strong> <span id="tipos"></span></p>
+<p><strong>Tamaño:</strong> <span id="metroscuadrados"></span></p>
+<p><strong>Estado:</strong> <span id="estado"></span></p>
+<p><strong>Descripción:</strong> <span id="Descripcion"></span></p>
+
+                
+            </div>
+            </div>
+        </dialog>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

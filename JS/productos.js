@@ -1,3 +1,5 @@
+const URL_BASE = "https://yofibox.com/api_aura/archivos/";
+
 let precio=document.getElementById('precios');
 let Estado=document.getElementById('estado');
 let Metros_cuadrados=document.getElementById('metroscuadrados');
@@ -6,11 +8,12 @@ let Descripcion=document.getElementById('Descripcion');
 let products_grid=document.getElementById('products_grid');
 let ubicacion=document.getElementById("ubicaciones");
 let content_img_flotante=document.getElementById("content_img_flotante");
+let titulo=document.getElementById("titulo");
 let articulos_all=[];
 
 async function getproductos() {
     try {
-        const respuesta = await axios.post("https://yofibox.com/api_aura/archivos/buscar_inventario.php");
+        const respuesta = await axios.post(URL_BASE + "buscar_inventario.php");
         console.log('Respuesta del servidor:', respuesta.data);
         articulos_all = []; 
         
@@ -25,10 +28,11 @@ async function getproductos() {
                 tamano: articulo.tamano+" m2" || '',
                 imagenes: articulo.imagenes || '',
                 moneda: articulo.moneda || '',
+                nombre: articulo.nombre || '',
                 vende_por_m2: articulo.vende_por_m2,
                 image: articulo.imagenes && articulo.imagenes.includes('|') 
-                    ? "https://yofibox.com/api_aura/archivos/" + articulo.imagenes.split('|')[0] 
-                    : "https://yofibox.com/api_aura/archivos/" + (articulo.imagenes || '')
+                    ? URL_BASE + articulo.imagenes.split('|')[0] 
+                    : URL_BASE + (articulo.imagenes || '')
             };
             articulos_all.push(componente);
         });
@@ -55,9 +59,9 @@ function renderProducts() {
     articulos_all.forEach(articulo => {
         let div_product = document.createElement('div');
         div_product.innerHTML = `
-            <img src="${articulo.image}" alt="${articulo.description}" class="product-image">
+            <img src="${articulo.image}" alt="${articulo.nombre}" class="product-image">
             <div class="product-info">
-                <h3 class="product-title">${articulo.description}</h3>
+                <h3 class="product-title">${articulo.nombre}</h3>
                 <p class="product-price">${articulo.moneda} ${articulo.price.toLocaleString()}</p>
                 <p class="product-type">${articulo.type}</p>
                 <p class="product-location">${articulo.location}</p>
@@ -66,6 +70,7 @@ function renderProducts() {
         div_product.className = 'product-card';
         div_product.addEventListener("click", function(){
             // Asignar valores a los elementos del modal
+            titulo.textContent = articulo.nombre;
             precio.textContent = articulo.price+" "+articulo.moneda+(articulo.vende_por_m2==1 ? " por m2" : "");
             Estado.textContent = "En "+ articulo.category;
             Metros_cuadrados.textContent = articulo.tamano;
@@ -82,7 +87,7 @@ function renderProducts() {
             }
             for (let index = 0; index < imagenes.length; index++) {
                 let elemento_imagen=document.createElement('img');
-                elemento_imagen.src = "https://yofibox.com/api_aura/archivos/" + imagenes[index];
+                elemento_imagen.src = URL_BASE + imagenes[index];
                 elemento_imagen.alt = "imagen_producto";
                 elemento_imagen.className = 'show_animate_img';
                 content_img_flotante.appendChild(elemento_imagen);
@@ -195,8 +200,8 @@ function renderizarProductosFiltrados(productos) {
                 }
             }
             for (let index = 0; index < imagenes.length; index++) {
-                let elemento_imagen=document.createElement('img');
-                elemento_imagen.src = "https://yofibox.com/api_aura/archivos/" + imagenes[index];
+                let elemento_imagen = document.createElement('img');
+                elemento_imagen.src = URL_BASE + imagenes[index];
                 elemento_imagen.alt = "imagen_producto";
                 elemento_imagen.className = 'show_animate_img';
                 content_img_flotante.appendChild(elemento_imagen);

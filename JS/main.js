@@ -1,3 +1,5 @@
+ const URL_BASE = "https://yofibox.com/api_aura/archivos/";
+ let video=document.getElementById("dialog_video");
  const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
 

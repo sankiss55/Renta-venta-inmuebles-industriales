@@ -467,7 +467,7 @@ body {
 
     .sidebar {
         order: 2;
-        position: sticky;
+        position: block;
         bottom: 0;
         background: white;
         border-radius: 8px 8px 0 0;

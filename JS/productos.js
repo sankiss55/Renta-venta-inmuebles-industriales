@@ -1,4 +1,5 @@
 const URL_BASE = "https://yofibox.com/api_aura/archivos/";
+//const URL_BASE = "http://192.168.1.70/bo_api/";
 
 let precio=document.getElementById('precios');
 let Estado=document.getElementById('estado');
@@ -71,12 +72,25 @@ function renderProducts() {
         div_product.addEventListener("click", function(){
             // Asignar valores a los elementos del modal
             titulo.textContent = articulo.nombre;
-            precio.textContent = articulo.price+" "+articulo.moneda+(articulo.vende_por_m2==1 ? " por m2" : "");
+            precio.textContent = articulo.moneda + " " + 
+                articulo.price.toLocaleString('es-MX', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) + (articulo.vende_por_m2 == 1 ? " por m2" : "");
             Estado.textContent = "En "+ articulo.category;
             Metros_cuadrados.textContent = articulo.tamano;
             tipo.textContent = articulo.type;
-            Descripcion.textContent = articulo.description;
-            ubicacion.textContent=articulo.location;
+            
+            // Formatear la descripción
+            const descripcionFormateada = articulo.description
+                .split('\n')
+                .map(parrafo => `<p class="mb-2">${parrafo.trim()}</p>`)
+                .join('')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convertir **texto** en negrita
+                .replace(/\*(.*?)\*/g, '<em>$1</em>'); // Convertir *texto* en cursiva
+            
+            Descripcion.innerHTML = descripcionFormateada;
+            ubicacion.textContent = articulo.location;
             let imagenes= articulo.imagenes.includes('|')? articulo.imagenes.split('|') : [articulo.imagenes];
             
             for (let index = 0; index < content_img_flotante.childNodes.length; index++) {
@@ -189,8 +203,17 @@ function renderizarProductosFiltrados(productos) {
             Estado.textContent = "En "+ articulo.category;
             Metros_cuadrados.textContent = articulo.tamano;
             tipo.textContent = articulo.type;
-            Descripcion.textContent = articulo.description;
-            ubicacion.textContent=articulo.location;
+            
+            // Formatear la descripción
+            const descripcionFormateada = articulo.description
+                .split('\n')
+                .map(parrafo => `<p class="mb-2">${parrafo.trim()}</p>`)
+                .join('')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convertir **texto** en negrita
+                .replace(/\*(.*?)\*/g, '<em>$1</em>'); // Convertir *texto* en cursiva
+            
+            Descripcion.innerHTML = descripcionFormateada;
+            ubicacion.textContent = articulo.location;
             let imagenes= articulo.imagenes.includes('|')? articulo.imagenes.split('|') : [articulo.imagenes];
             
             for (let index = 0; index < content_img_flotante.childNodes.length; index++) {
